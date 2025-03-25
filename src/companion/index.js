@@ -2,11 +2,7 @@ import * as messaging from "messaging";
 import { settingsStorage } from "settings";
 import GCalendar from "./iCalendar";
 import { me } from "companion";
-import { GC_DATA_FILE, GC_ERROR_FILE, GC_UPDATE_TOKEN, MAX_EVENT_COUNT, GC_FETCH_TOKEN, DEBUG } from "../common/const";
-
-//https://github.com/dillpixel/fitbit-google-analytics
-import "fitbit-google-analytics/companion"
-
+import { DEBUG } from "../common/const";
 
 const gCalendar = new GCalendar();
 
@@ -26,7 +22,7 @@ settingsStorage.onchange = (evt) => {
   let data = {
     key: evt.key,
     newValue: evt.newValue,
-    oldValue: evt.oldValue
+    oldValue: evt.oldValue,
   };
   sendVal(data);
 };
@@ -39,7 +35,7 @@ function restoreSettings() {
       let data = {
         key: key,
         newValue: settingsStorage.getItem(key),
-        restore: true
+        restore: true,
       };
       sendVal(data);
     }
@@ -58,5 +54,3 @@ function sendVal(data) {
 if (me.launchReasons.settingsChanged) {
   gCalendar.loadEvents();
 }
-
-
